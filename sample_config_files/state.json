@@ -1,0 +1,16 @@
+{
+	"bookmarks": {
+		"ads":"2019-03-29T00:00:00Z",
+		"adcreative":"2019-03-29T00:00:00Z",
+		"ads_insights":"2019-03-29T00:00:00Z",
+		"ads_insights_country": {
+			"date_start":"2019-03-29T00:00:00Z"
+		},
+		"ads_insights_region": {
+			"date_start":"2019-03-29T00:00:00Z"
+		},
+		"ads_insights_hourly": {
+			"date_start":"2019-03-29T00:00:00Z"
+		}
+	}
+}
