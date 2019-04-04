@@ -49,7 +49,8 @@ STREAMS = [
     'ads_insights_age_and_gender',
     'ads_insights_country',
     'ads_insights_platform_and_device',
-    'ads_insights_region']
+    'ads_insights_region',
+    'ads_insights_hourly']
 
 REQUIRED_CONFIG_KEYS = ['start_date', 'account_id', 'access_token']
 UPDATED_TIME_KEY = 'updated_time'
@@ -63,7 +64,8 @@ BOOKMARK_KEYS = {
     'ads_insights_age_and_gender': START_DATE_KEY,
     'ads_insights_country': START_DATE_KEY,
     'ads_insights_platform_and_device': START_DATE_KEY,
-    'ads_insights_region': START_DATE_KEY
+    'ads_insights_region': START_DATE_KEY,
+    'ads_insights_hourly': START_DATE_KEY,
 }
 
 LOGGER = singer.get_logger()
@@ -382,7 +384,7 @@ class AdsInsights(Stream):
     state = attr.ib()
     options = attr.ib()
     action_breakdowns = attr.ib(default=ALL_ACTION_BREAKDOWNS)
-    level = attr.ib(default='ad')
+    level = attr.ib(default='campaign')
     action_attribution_windows = attr.ib(
         default=ALL_ACTION_ATTRIBUTION_WINDOWS)
     time_increment = attr.ib(default=1)
@@ -391,7 +393,8 @@ class AdsInsights(Stream):
     bookmark_key = START_DATE_KEY
 
     invalid_insights_fields = ['impression_device', 'publisher_platform', 'platform_position',
-                               'age', 'gender', 'country', 'placement', 'region']
+                               'age', 'gender', 'country', 'placement', 'region',
+                               'hourly_stats_aggregated_by_advertiser_time_zone']
 
     # pylint: disable=no-member,unsubscriptable-object,attribute-defined-outside-init
     def __attrs_post_init__(self):
@@ -504,7 +507,9 @@ INSIGHTS_BREAKDOWNS_OPTIONS = {
                                          "primary-keys": ['publisher_platform',
                                                           'platform_position', 'impression_device']},
     'ads_insights_region': {'breakdowns': ['region'],
-                            'primary-keys': ['region']}
+                            'primary-keys': ['region']},
+    'ads_insights_hourly': {'breakdowns': ['hourly_stats_aggregated_by_advertiser_time_zone'],
+                                'primary-keys': ['date_start']}
 }
 
 
